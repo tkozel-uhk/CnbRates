@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Kurzy ČNB</string>
+    <string name="choose_date">Vyberte datum</string>
+    <string name="date_select_desc">Vyberte si datum požadovaného kurzovního lístku</string>
+</resources>
