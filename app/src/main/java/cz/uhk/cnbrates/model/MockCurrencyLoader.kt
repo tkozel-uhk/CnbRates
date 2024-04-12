@@ -5,6 +5,10 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 
+/**
+ * Mockova trida se vzorovymi daty kurzu
+ * Pouziva se pro preview komponenty
+ */
 class MockCurrencyLoader : CurrencyLoader {
     override fun loadCurrencies(date: LocalDate): List<Currency> {
         return mutableListOf(

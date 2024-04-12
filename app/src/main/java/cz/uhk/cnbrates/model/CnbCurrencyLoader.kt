@@ -5,23 +5,20 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 
+/**
+ * Implementace [CurrencyLoader] pro kurovni listek CNB
+ */
 class CnbCurrencyLoader : CurrencyLoader {
-    /*override fun loadCurrencies(): List<Currency> {
-        return mutableListOf(
-            Currency("Austrálie", "dolar", 1, "AUD", 17.22),
-            Currency("Brazílie", "real", 1, "BRL", 4.09),
-            Currency("Bulharsko", "lev", 1, "BGN", 13.03),
-            Currency("Čína", "žen-min-pi", 1, "CNY", 3.43),
-            Currency("Dánsko", "koruna", 1, "DKK", 3.47),
-        )
-    }*/
 
+    /**
+     * URL sluzby CNB - format CSV
+     */
     val CNB_URL = "https://www.cnb.cz/cs/financni_trhy/devizovy_trh/kurzy_devizoveho_trhu/denni_kurz.txt"
     override fun loadCurrencies(date: LocalDate): List<Currency> {
         val dateStr = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).format(date)
         val url = URL("$CNB_URL?date=$dateStr")
         val text = url.readText()
-        val lines = text.lines().subList(2, text.lines().size - 2)
+        val lines = text.lines().subList(2, text.lines().size - 2) //preskocime hlavicky
         val currencies = mutableListOf<Currency>()
         for (line in lines) {
             val parts = line.split("|")

@@ -52,20 +52,18 @@ class CurrencyListActivity : ComponentActivity() {
         val scope = CoroutineScope(Dispatchers.Default)
 
         scope.launch {
-            runBlocking {
-                // Proveďte síťový požadavek
-                val currencies = CnbCurrencyLoader().loadCurrencies(date)
-                // Aktualizace UI s výsledkem
-                withContext(Dispatchers.Main) {
-                    setContent {
-                        CNBRatesTheme {
-                            // A surface container using the 'background' color from the theme
-                            Surface(
-                                modifier = Modifier.fillMaxSize(),
-                                color = MaterialTheme.colorScheme.background
-                            ) {
-                                CurrencyList(currencies, flags)
-                            }
+            // Nacist meny
+            val currencies = CnbCurrencyLoader().loadCurrencies(date)
+            // Aktualizace UI s výsledkem
+            withContext(Dispatchers.Main) {
+                setContent {
+                    CNBRatesTheme {
+                        // A surface container using the 'background' color from the theme
+                        Surface(
+                            modifier = Modifier.fillMaxSize(),
+                            color = MaterialTheme.colorScheme.background
+                        ) {
+                            CurrencyList(currencies, flags)
                         }
                     }
                 }
@@ -78,7 +76,6 @@ class CurrencyListActivity : ComponentActivity() {
 
 @Composable
 fun CurrencyList(currencies: List<Currency>, flags: Map<String, String>) {
-    //run in background
 
     val currList = remember {
         currencies

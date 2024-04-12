@@ -42,6 +42,9 @@ import java.nio.file.WatchEvent
 import java.time.LocalDate
 import java.time.LocalDateTime
 
+/**
+ * Hlavni ativita s vyberem data kurzovniho listku
+ */
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,12 +62,15 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+/**
+ * Obrazovka pro vyber data
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun DateChooser(modifier: Modifier = Modifier) {
+fun DateChooser() {
     val datePickerState = rememberDatePickerState(System.currentTimeMillis())
-    val context = LocalContext.current
+    val context = LocalContext.current //umoznuje komunikova s aktivitou
 
     Scaffold(
         topBar = {
@@ -94,12 +100,15 @@ fun DateChooser(modifier: Modifier = Modifier) {
                     .align(Alignment.CenterHorizontally)
                     .padding(top = 12.dp)
             ) {
-                Text(text = "Read list")
+                Text(text = stringResource(R.string.read_list))
             }
         }
     }
 }
 
+/**
+ * onCLick Listener pro zobrazeni listku
+ */
 fun showCurrenciesList(selectedDate: Long, context: Context) {
     val date = LocalDate.ofEpochDay(selectedDate / 1000 / 60 / 60 / 24)
     val intent = Intent(context, CurrencyListActivity::class.java)
@@ -107,6 +116,9 @@ fun showCurrenciesList(selectedDate: Long, context: Context) {
     context.startActivity(intent)
 }
 
+/**
+ * Komponenta pro vyber datumu
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DateSelector(datePickerState: DatePickerState) {

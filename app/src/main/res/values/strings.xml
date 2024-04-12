@@ -3,4 +3,5 @@
     <string name="date_select_desc">Select the date of desired currency list.</string>
     <string name="choose_date">Select date</string>
     <string name="title_activity_currency_list">CurrencyListActivity</string>
+    <string name="read_list">Read list</string>
 </resources>
