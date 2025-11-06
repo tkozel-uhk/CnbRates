@@ -25,6 +25,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.lifecycleScope
 import cz.uhk.cnbrates.model.CnbCurrencyLoader
 import cz.uhk.cnbrates.model.Currency
 import cz.uhk.cnbrates.model.MockCurrencyLoader
@@ -49,25 +50,26 @@ class CurrencyListActivity : ComponentActivity() {
         val intent = intent
         val date: LocalDate =
             LocalDate.parse(intent.getStringExtra("date"), DateTimeFormatter.ISO_DATE)
-        val scope = CoroutineScope(Dispatchers.Default)
 
-        scope.launch {
+        lifecycleScope.launch {
             // Nacist meny
-            val currencies = CnbCurrencyLoader().loadCurrencies(date)
+            val currencies = withContext(Dispatchers.IO) {
+                CnbCurrencyLoader().loadCurrencies(date)
+            }
+
             // Aktualizace UI s výsledkem
-            withContext(Dispatchers.Main) {
-                setContent {
-                    CNBRatesTheme {
-                        // A surface container using the 'background' color from the theme
-                        Surface(
-                            modifier = Modifier.fillMaxSize(),
-                            color = MaterialTheme.colorScheme.background
-                        ) {
-                            CurrencyList(currencies, flags)
-                        }
+            setContent {
+                CNBRatesTheme {
+                    // A surface container using the 'background' color from the theme
+                    Surface(
+                        modifier = Modifier.fillMaxSize(),
+                        color = MaterialTheme.colorScheme.background
+                    ) {
+                        CurrencyList(currencies, flags)
                     }
                 }
             }
+
         }
 
 
@@ -124,7 +126,7 @@ fun CurrencyItem(item: Currency, flag: String) {
                 )
                 Text(
                     text = currencyFormater.format(item.rate), modifier =
-                    Modifier.padding(end = 5.dp),
+                        Modifier.padding(end = 5.dp),
                     textAlign = TextAlign.End,
                     fontWeight = FontWeight.Bold,
                     color = Color.Red
