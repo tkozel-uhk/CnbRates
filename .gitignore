@@ -1,15 +1,61 @@
+gitignore
+# Created by Android Studio
+
+# JNI/NDK specific build artifacts
+.cxx/
+**/.cxx/
+*.so
+*.o
+
+# User-specific files
 *.iml
-.gradle
-/local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
-.DS_Store
-/build
-/captures
-.externalNativeBuild
-.cxx
+*.orig
+.idea/assetWizardSettings.xml
+.idea/deployment.xml
+.idea/libraries/
+.idea/misc.xml
+.idea/modules.xml
+.idea/navEditor.xml
+.idea/render.experimental.xml
+.idea/vcs.xml
+.idea/workspace.xml
+# Deprecated, but keep for legacy
+.idea/dictionaries
+
+# Gradle files
+.gradle/
+build/
 local.properties
+# Allow explicitly checking in wrapper jar
+!gradle/wrapper/gradle-wrapper.jar
+
+# Log files
+*.log
+
+# Keystore files
+*.jks
+*.keystore
+
+# Heap dump files
+*.hprof
+
+# Mac OS metadata files
+.DS_Store
+
+# APK and other build outputs
+*.apk
+*.aab
+/captures/
+output.json
+
+# Local native build outputs
+.externalNativeBuild
+
+# VR related files
+.gvr/
+
+# Profiler files
+*.json5
+
+# Kover coverage reports
+*.kover
