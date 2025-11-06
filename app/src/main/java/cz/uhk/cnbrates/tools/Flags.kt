@@ -1,6 +1,5 @@
 package cz.uhk.cnbrates.tools
 
-import android.R
 import android.content.Context
 import com.google.gson.Gson
 

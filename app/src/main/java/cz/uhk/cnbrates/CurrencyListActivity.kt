@@ -16,7 +16,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -31,12 +30,8 @@ import cz.uhk.cnbrates.model.Currency
 import cz.uhk.cnbrates.model.MockCurrencyLoader
 import cz.uhk.cnbrates.tools.loadFlags
 import cz.uhk.cnbrates.ui.theme.CNBRatesTheme
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import java.text.NumberFormat
 import java.time.LocalDate
@@ -79,18 +74,15 @@ class CurrencyListActivity : ComponentActivity() {
 @Composable
 fun CurrencyList(currencies: List<Currency>, flags: Map<String, String>) {
 
-    val currList = remember {
-        currencies
-    }
     LazyColumn {
-        items(currList) {
+        items(currencies) {
             val flag = flags[it.code]
             CurrencyItem(it, flag ?: "")
         }
     }
 }
 
-val currencyFormater: NumberFormat = java.text.NumberFormat.getCurrencyInstance()
+private val currencyFormater: NumberFormat = NumberFormat.getCurrencyInstance()
 
 @Composable
 fun CurrencyItem(item: Currency, flag: String) {
